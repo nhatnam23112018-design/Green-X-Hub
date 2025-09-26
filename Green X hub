@@ -1,0 +1,669 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Green X Hub",
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "Rayfield Interface Suite",
+   LoadingSubtitle = "by Duy🇻🇳",
+   ShowText = "Rayfield", -- for mobile users to unhide rayfield, change if you'd like
+   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+
+   ToggleUIKeybind = "K", -- The keybind to toggle the UI visibility (string like "K" or Enum.KeyCode)
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Big Hub"
+   },
+
+   Discord = {
+      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
+      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local Tab = Window:CreateTab("Main", 4483362458) -- Title, Image
+
+local Section = Tab:CreateSection("Gui by Duy🇻🇳")
+
+local Button = Tab:CreateButton({
+   Name = "WalkSpeed Gui + JumpPower Gui",
+   Callback = function()
+   -- LocalScript trong StarterGui
+
+local player = game.Players.LocalPlayer
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "SpeedJumpGui"
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Frame chính
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 300, 0, 220)
+frame.Position = UDim2.new(0.5, -150, 0.5, -110)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame.BorderSizePixel = 4
+frame.BorderColor3 = Color3.fromRGB(0, 255, 0)
+frame.Active = true
+frame.Draggable = true -- cho phép kéo thả
+frame.Parent = screenGui
+
+-- 🟢 WalkSpeed GUI
+local wsBox = Instance.new("TextBox")
+wsBox.Size = UDim2.new(0, 200, 0, 30)
+wsBox.Position = UDim2.new(0.5, -100, 0, 20)
+wsBox.PlaceholderText = "change your speed.. (1-500)"
+wsBox.TextColor3 = Color3.fromRGB(0, 255, 0)
+wsBox.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+wsBox.BorderColor3 = Color3.fromRGB(0, 255, 0)
+wsBox.Parent = frame
+
+local wsLabel = Instance.new("TextLabel")
+wsLabel.Size = UDim2.new(0, 200, 0, 20)
+wsLabel.Position = UDim2.new(0.5, -100, 0, 55)
+wsLabel.Text = "walkspeed gui"
+wsLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+wsLabel.BackgroundTransparency = 1
+wsLabel.Parent = frame
+
+local wsButton = Instance.new("TextButton")
+wsButton.Size = UDim2.new(0, 100, 0, 30)
+wsButton.Position = UDim2.new(0.5, -50, 0, 80)
+wsButton.Text = "change"
+wsButton.TextColor3 = Color3.fromRGB(0, 255, 0)
+wsButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+wsButton.BorderColor3 = Color3.fromRGB(0, 255, 0)
+wsButton.Parent = frame
+
+wsButton.MouseButton1Click:Connect(function()
+	local speed = tonumber(wsBox.Text)
+	local humanoid = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
+	if humanoid and speed and speed >= 1 and speed <= 500 then
+		humanoid.WalkSpeed = speed
+	else
+		wsBox.Text = "nhập số 1 - 500!"
+	end
+end)
+
+-- 🟢 JumpPower GUI
+local jpBox = Instance.new("TextBox")
+jpBox.Size = UDim2.new(0, 200, 0, 30)
+jpBox.Position = UDim2.new(0.5, -100, 0, 130)
+jpBox.PlaceholderText = "change your jumppower... (1-500)"
+jpBox.TextColor3 = Color3.fromRGB(0, 255, 0)
+jpBox.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+jpBox.BorderColor3 = Color3.fromRGB(0, 255, 0)
+jpBox.Parent = frame
+
+local jpLabel = Instance.new("TextLabel")
+jpLabel.Size = UDim2.new(0, 200, 0, 20)
+jpLabel.Position = UDim2.new(0.5, -100, 0, 165)
+jpLabel.Text = "jumppower gui"
+jpLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+jpLabel.BackgroundTransparency = 1
+jpLabel.Parent = frame
+
+local jpButton = Instance.new("TextButton")
+jpButton.Size = UDim2.new(0, 100, 0, 30)
+jpButton.Position = UDim2.new(0.5, -50, 0, 190)
+jpButton.Text = "change"
+jpButton.TextColor3 = Color3.fromRGB(0, 255, 0)
+jpButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+jpButton.BorderColor3 = Color3.fromRGB(0, 255, 0)
+jpButton.Parent = frame
+
+jpButton.MouseButton1Click:Connect(function()
+	local power = tonumber(jpBox.Text)
+	local humanoid = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
+	if humanoid and power and power >= 1 and power <= 500 then
+		humanoid.UseJumpPower = true
+		humanoid.JumpPower = power
+	else
+		jpBox.Text = "nhập số 1 - 500!"
+	end
+end)
+   -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "NoclipGui",
+   Callback = function()
+   -- LocalScript trong StarterGui
+
+local player = game.Players.LocalPlayer
+local runService = game:GetService("RunService")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "NoclipGui"
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Frame chính
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 250, 0, 120)
+frame.Position = UDim2.new(0.5, -125, 0.5, -60)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame.BorderSizePixel = 4
+frame.BorderColor3 = Color3.fromRGB(0, 255, 0)
+frame.Active = true
+frame.Draggable = true
+frame.Parent = screenGui
+
+-- Tiêu đề
+local label = Instance.new("TextLabel")
+label.Size = UDim2.new(0, 200, 0, 20)
+label.Position = UDim2.new(0.5, -100, 0, 20)
+label.Text = "noclip gui"
+label.TextColor3 = Color3.fromRGB(0, 255, 0)
+label.BackgroundTransparency = 1
+label.Parent = frame
+
+-- Button
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0, 120, 0, 40)
+button.Position = UDim2.new(0.5, -60, 0, 60)
+button.Text = "click!"
+button.TextColor3 = Color3.fromRGB(0, 255, 0)
+button.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+button.BorderColor3 = Color3.fromRGB(0, 255, 0)
+button.Parent = frame
+
+-- Noclip logic
+local noclip = false
+local connection
+
+button.MouseButton1Click:Connect(function()
+	noclip = not noclip
+	if noclip then
+		button.Text = "noclip: ON"
+		connection = runService.Stepped:Connect(function()
+			if player.Character and player.Character:FindFirstChild("Humanoid") then
+				for _, part in pairs(player.Character:GetDescendants()) do
+					if part:IsA("BasePart") and part.CanCollide == true then
+						part.CanCollide = false
+					end
+				end
+			end
+		end)
+	else
+		button.Text = "noclip: OFF"
+		if connection then
+			connection:Disconnect()
+			connection = nil
+		end
+		-- bật lại va chạm khi tắt noclip
+		if player.Character then
+			for _, part in pairs(player.Character:GetDescendants()) do
+				if part:IsA("BasePart") then
+					part.CanCollide = true
+				end
+			end
+		end
+	end
+end)
+   -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Infinite jump gui",
+   Callback = function()
+   -- LocalScript trong StarterGui
+
+local player = game.Players.LocalPlayer
+local uis = game:GetService("UserInputService")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "InfJumpGui"
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Frame chính
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 250, 0, 120)
+frame.Position = UDim2.new(0.5, -125, 0.5, -60)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame.BorderSizePixel = 4
+frame.BorderColor3 = Color3.fromRGB(0, 255, 0)
+frame.Active = true
+frame.Draggable = true
+frame.Parent = screenGui
+
+-- Label
+local label = Instance.new("TextLabel")
+label.Size = UDim2.new(0, 200, 0, 20)
+label.Position = UDim2.new(0.5, -100, 0, 20)
+label.Text = "inf jump gui"
+label.TextColor3 = Color3.fromRGB(0, 255, 0)
+label.BackgroundTransparency = 1
+label.Parent = frame
+
+-- Button
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0, 120, 0, 40)
+button.Position = UDim2.new(0.5, -60, 0, 60)
+button.Text = "click!"
+button.TextColor3 = Color3.fromRGB(0, 255, 0)
+button.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+button.BorderColor3 = Color3.fromRGB(0, 255, 0)
+button.Parent = frame
+
+-- Infinite Jump logic
+local infJump = false
+local connection
+
+button.MouseButton1Click:Connect(function()
+	infJump = not infJump
+	if infJump then
+		button.Text = "inf jump: ON"
+		connection = uis.JumpRequest:Connect(function()
+			if player.Character and player.Character:FindFirstChildOfClass("Humanoid") then
+				player.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
+			end
+		end)
+	else
+		button.Text = "inf jump: OFF"
+		if connection then
+			connection:Disconnect()
+			connection = nil
+		end
+	end
+end)
+
+-- Xử lý khi chết: tự tắt + xóa GUI
+player.CharacterAdded:Connect(function(char)
+	infJump = false
+	if connection then
+		connection:Disconnect()
+		connection = nil
+	end
+	screenGui:Destroy()
+end)
+   -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Aimbot gui",
+   Callback = function()
+   -- LocalScript: Aimbot GUI
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local player = Players.LocalPlayer
+local camera = workspace.CurrentCamera
+local humanoid = player.Character:WaitForChild("Humanoid")
+
+-- Tạo GUI
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player:WaitForChild("PlayerGui")
+screenGui.ResetOnSpawn = false
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 120)
+frame.Position = UDim2.new(0.4, 0, 0.5, 0)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame.BorderSizePixel = 4
+frame.BorderColor3 = Color3.fromRGB(0, 255, 0)
+frame.Active = true
+frame.Draggable = true
+frame.Parent = screenGui
+
+local title = Instance.new("TextLabel")
+title.Text = "aimbot gui"
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundTransparency = 1
+title.TextColor3 = Color3.fromRGB(0, 255, 0)
+title.Font = Enum.Font.SourceSansBold
+title.TextScaled = true
+title.Parent = frame
+
+local toggleBtn = Instance.new("TextButton")
+toggleBtn.Text = "click"
+toggleBtn.Size = UDim2.new(0.7, 0, 0, 40)
+toggleBtn.Position = UDim2.new(0.15, 0, 0.5, 0)
+toggleBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+toggleBtn.BorderSizePixel = 3
+toggleBtn.BorderColor3 = Color3.fromRGB(0, 255, 0)
+toggleBtn.TextColor3 = Color3.fromRGB(0, 255, 0)
+toggleBtn.Font = Enum.Font.SourceSansBold
+toggleBtn.TextScaled = true
+toggleBtn.Parent = frame
+
+-- Biến điều khiển
+local aimbotEnabled = false
+
+-- Hàm tìm người chơi gần nhất
+local function getClosestPlayer()
+	local closest, distance = nil, math.huge
+	for _, target in pairs(Players:GetPlayers()) do
+		if target ~= player and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+			local targetPos = target.Character.HumanoidRootPart.Position
+			local diff = (targetPos - player.Character.HumanoidRootPart.Position).Magnitude
+			if diff < distance then
+				closest = target
+				distance = diff
+			end
+		end
+	end
+	return closest
+end
+
+-- Toggle Aimbot
+toggleBtn.MouseButton1Click:Connect(function()
+	aimbotEnabled = not aimbotEnabled
+	if aimbotEnabled then
+		toggleBtn.Text = "ON"
+	else
+		toggleBtn.Text = "OFF"
+	end
+end)
+
+-- Luôn chạy khi bật
+RunService.RenderStepped:Connect(function()
+	if aimbotEnabled and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+		local target = getClosestPlayer()
+		if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+			local targetPos = target.Character.HumanoidRootPart.Position
+			camera.CFrame = CFrame.new(camera.CFrame.Position, targetPos)
+		end
+	end
+end)
+
+-- Khi chết thì xóa GUI + tắt Aimbot
+humanoid.Died:Connect(function()
+	aimbotEnabled = false
+	screenGui:Destroy()
+end)
+   -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "teleport gui",
+   Callback = function()
+   -- LocalScript: Teleport GUI
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local humanoid = player.Character:WaitForChild("Humanoid")
+
+-- Tạo ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player:WaitForChild("PlayerGui")
+screenGui.ResetOnSpawn = false
+
+-- Tạo Frame chính
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 120)
+frame.Position = UDim2.new(0.4, 0, 0.5, 0)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame.BorderSizePixel = 4
+frame.BorderColor3 = Color3.fromRGB(0, 255, 0)
+frame.Active = true
+frame.Draggable = true
+frame.Parent = screenGui
+
+-- Tiêu đề
+local title = Instance.new("TextLabel")
+title.Text = "teleport gui"
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundTransparency = 1
+title.TextColor3 = Color3.fromRGB(0, 255, 0)
+title.Font = Enum.Font.SourceSansBold
+title.TextScaled = true
+title.Parent = frame
+
+-- Nút Set
+local setBtn = Instance.new("TextButton")
+setBtn.Text = "set"
+setBtn.Size = UDim2.new(0.45, 0, 0, 40)
+setBtn.Position = UDim2.new(0.025, 0, 0.5, 0)
+setBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+setBtn.BorderSizePixel = 3
+setBtn.BorderColor3 = Color3.fromRGB(0, 255, 0)
+setBtn.TextColor3 = Color3.fromRGB(0, 255, 0)
+setBtn.Font = Enum.Font.SourceSansBold
+setBtn.TextScaled = true
+setBtn.Parent = frame
+
+-- Nút Teleport
+local tpBtn = Instance.new("TextButton")
+tpBtn.Text = "teleport"
+tpBtn.Size = UDim2.new(0.45, 0, 0, 40)
+tpBtn.Position = UDim2.new(0.525, 0, 0.5, 0)
+tpBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+tpBtn.BorderSizePixel = 3
+tpBtn.BorderColor3 = Color3.fromRGB(0, 255, 0)
+tpBtn.TextColor3 = Color3.fromRGB(0, 255, 0)
+tpBtn.Font = Enum.Font.SourceSansBold
+tpBtn.TextScaled = true
+tpBtn.Parent = frame
+
+-- Biến lưu vị trí
+local savedPos = nil
+
+-- Khi bấm "Set"
+setBtn.MouseButton1Click:Connect(function()
+	if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+		savedPos = player.Character.HumanoidRootPart.CFrame
+	end
+end)
+
+-- Khi bấm "Teleport"
+tpBtn.MouseButton1Click:Connect(function()
+	if savedPos and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+		player.Character.HumanoidRootPart.CFrame = savedPos
+	end
+end)
+
+-- Khi chết thì xóa GUI
+humanoid.Died:Connect(function()
+	screenGui:Destroy()
+	savedPos = nil
+end)
+   -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "swim gui",
+   Callback = function()
+   -- LocalScript: Swim GUI
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local humanoid = player.Character:WaitForChild("Humanoid")
+
+-- Tạo GUI
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player:WaitForChild("PlayerGui")
+screenGui.ResetOnSpawn = false
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 120)
+frame.Position = UDim2.new(0.4, 0, 0.5, 0)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame.BorderSizePixel = 4
+frame.BorderColor3 = Color3.fromRGB(0, 255, 0)
+frame.Active = true
+frame.Draggable = true
+frame.Parent = screenGui
+
+local title = Instance.new("TextLabel")
+title.Text = "swim gui"
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundTransparency = 1
+title.TextColor3 = Color3.fromRGB(0, 255, 0)
+title.Font = Enum.Font.SourceSansBold
+title.TextScaled = true
+title.Parent = frame
+
+local toggleBtn = Instance.new("TextButton")
+toggleBtn.Text = "click"
+toggleBtn.Size = UDim2.new(0.7, 0, 0, 40)
+toggleBtn.Position = UDim2.new(0.15, 0, 0.5, 0)
+toggleBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+toggleBtn.BorderSizePixel = 3
+toggleBtn.BorderColor3 = Color3.fromRGB(0, 255, 0)
+toggleBtn.TextColor3 = Color3.fromRGB(0, 255, 0)
+toggleBtn.Font = Enum.Font.SourceSansBold
+toggleBtn.TextScaled = true
+toggleBtn.Parent = frame
+
+-- Biến điều khiển
+local swimming = false
+
+-- Toggle swim
+toggleBtn.MouseButton1Click:Connect(function()
+	swimming = not swimming
+	if swimming then
+		toggleBtn.Text = "ON"
+		humanoid:ChangeState(Enum.HumanoidStateType.Swimming)
+	else
+		toggleBtn.Text = "OFF"
+		humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+	end
+end)
+
+-- Khi chết thì xóa GUI + tắt bơi
+humanoid.Died:Connect(function()
+	swimming = false
+	screenGui:Destroy()
+end)
+   -- The function that takes place when the button is pressed
+   end,
+})
+
+local Toggle = Tab:CreateToggle({
+   Name = "esp box+tracker",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   -- LocalScript: ESP Player (Box + Tracker) auto ON
+-- Dán vào StarterGui
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+local espObjects = {}
+
+local MAX_DISTANCE = 1000 -- khoảng cách tối đa ESP
+
+-- Tạo ESP cho 1 nhân vật
+local function createESP(character)
+	if not character or not character.Parent then return end
+	if espObjects[character] then return end
+	local hrp = character:FindFirstChild("HumanoidRootPart")
+	if not hrp then return end
+
+	-- Box
+	local billboard = Instance.new("BillboardGui")
+	billboard.Name = "ESP_Box"
+	billboard.Adornee = hrp
+	billboard.Size = UDim2.new(0,100,0,150)
+	billboard.AlwaysOnTop = true
+	billboard.Parent = character
+
+	local frame = Instance.new("Frame")
+	frame.Size = UDim2.new(1,0,1,0)
+	frame.BackgroundTransparency = 1
+	frame.BorderSizePixel = 0
+	frame.Parent = billboard
+
+	local function edge(pos,size)
+		local e = Instance.new("Frame")
+		e.AnchorPoint = Vector2.new(0.5,0.5)
+		e.Position = pos
+		e.Size = size
+		e.BackgroundColor3 = Color3.fromRGB(0,255,0)
+		e.BorderSizePixel = 0
+		e.Parent = frame
+	end
+	edge(UDim2.new(0.5,0,0,0),UDim2.new(1,0,0,2))
+	edge(UDim2.new(0.5,0,1,0),UDim2.new(1,0,0,2))
+	edge(UDim2.new(0,0,0.5,0),UDim2.new(0,2,1,0))
+	edge(UDim2.new(1,0,0.5,0),UDim2.new(0,2,1,0))
+
+	-- Tên
+	local tracker = Instance.new("BillboardGui")
+	tracker.Name = "ESP_Name"
+	tracker.Adornee = hrp
+	tracker.Size = UDim2.new(0,200,0,20)
+	tracker.StudsOffset = Vector3.new(0,3,0)
+	tracker.AlwaysOnTop = true
+	tracker.Parent = character
+
+	local text = Instance.new("TextLabel")
+	text.Size = UDim2.new(1,0,1,0)
+	text.BackgroundTransparency = 1
+	text.TextColor3 = Color3.fromRGB(0,255,0)
+	text.Font = Enum.Font.SourceSansBold
+	text.TextScaled = true
+	text.Text = character.Name
+	text.Parent = tracker
+
+	espObjects[character] = {billboard=billboard,tracker=tracker}
+end
+
+-- Xoá ESP
+local function removeESP(character)
+	if espObjects[character] then
+		for _,obj in pairs(espObjects[character]) do
+			if obj then obj:Destroy() end
+		end
+		espObjects[character] = nil
+	end
+end
+
+-- Vòng lặp update
+local conn
+conn = RunService.RenderStepped:Connect(function()
+	if not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then
+		for char,_ in pairs(espObjects) do removeESP(char) end
+		return
+	end
+	for _,pl in pairs(Players:GetPlayers()) do
+		if pl ~= player and pl.Character and pl.Character:FindFirstChild("HumanoidRootPart") then
+			local hrp = pl.Character.HumanoidRootPart
+			local dist = (hrp.Position - player.Character.HumanoidRootPart.Position).Magnitude
+			if dist <= MAX_DISTANCE then
+				createESP(pl.Character)
+			else
+				removeESP(pl.Character)
+			end
+		end
+	end
+end)
+
+-- Cleanup khi chết
+local function cleanup()
+	if conn then conn:Disconnect() end
+	for char,_ in pairs(espObjects) do removeESP(char) end
+	espObjects = {}
+end
+
+if player.Character then
+	local hum = player.Character:FindFirstChildOfClass("Humanoid")
+	if hum then hum.Died:Connect(cleanup) end
+end
+
+player.CharacterAdded:Connect(function(char)
+	local hum = char:WaitForChild("Humanoid")
+	hum.Died:Connect(cleanup)
+end)
+   -- The function that takes place when the toggle is pressed
+   -- The variable (Value) is a boolean on whether the toggle is true or false
+   end,
+})
